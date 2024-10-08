@@ -1,0 +1,10 @@
+*{
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  background-color: #000;
+  font-family: SpotifyMixUI,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif);
+}
