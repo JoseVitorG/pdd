@@ -1,8 +1,16 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
+import Home from './pages/Home'
+import Pesquisa from './pages/Pesquisa'
+import Inscreva from './pages/Inscrevase'
+
+const paginas = createBrowserRouter([
+  { path: '/', element: <Home /> },
+  { path: '/pesquisa', element: <Pesquisa /> },
+  { path: '/inscrever', element: <Inscreva /> },
+])
 
 createRoot(document.getElementById('root')).render(
-  <App />
+  <RouterProvider router={paginas} />,
 )
