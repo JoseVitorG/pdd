@@ -46,6 +46,8 @@ body {
 .mostrar_tudo {
   cursor: pointer;
   position: relative;
+  color: #fff;
+  text-decoration: none;
 }
 
 .titulo:hover::before {

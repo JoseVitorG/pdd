@@ -27,6 +27,7 @@ function Login() {
             console.log(login.data)
             if (login.data) {
                 console.log("logado")
+                localStorage.setItem("login", user)
                 window.location.href = "http://localhost:5173/"
             } else {
                 console.log("erro")

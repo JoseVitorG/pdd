@@ -57,7 +57,27 @@ const login = async (req, res) => {
 const add_musica = async (req, res) => {
     const dados = req.body
     const data = await cliente.query(`insert into musicas(nome, artista_id, album_id) values('${dados.nome}', ${dados.artista_id}, ${dados.album_id})`)
-    res.status(200).send(data)
+    res.status(201).send(data)
 }
 
-export { pegar_data, add_user, pegar_musicas, add_musica, login }
+// nao queria fazer assim mas os dados no banco de dados nao estao batendo, entao vai ter que ser assim
+
+const pegar_artistas = async (req, res) => {
+    const data = await cliente.query(`select nome_artistas as nome, foto_url as foto, tipo as desc from artistas_populares limit 18`)
+    res.status(200).send(data.rows)
+}
+
+const pegar_albuns_populares = async (req, res) => {
+    const data = await cliente.query(`select nome_album as nome, foto_url as foto, nome_artistas as desc from album_popular limit 18`)
+    res.status(200).send(data.rows)
+}
+const pegar_radios_populares = async (req, res) => {
+    const data = await cliente.query(`select nome_artistas as desc, foto_url as foto from radio_popular limit 18`)
+    res.status(200).send(data.rows)
+}
+const pegar_playlists = async (req, res) => {
+    const data = await cliente.query(`select descricao as desc, foto_url as foto from playlist_do_spotify limit 18`)
+    res.status(200).send(data.rows)
+}
+
+export { pegar_data, add_user, pegar_musicas, add_musica, login, pegar_artistas, pegar_albuns_populares, pegar_radios_populares, pegar_playlists }

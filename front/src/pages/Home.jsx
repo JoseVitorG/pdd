@@ -13,12 +13,22 @@ function Home() {
   const [playlists, setPlaylists] = useState([])
 
   const pegar_inicio = async () => {
-    const meta = await axios.get("http://localhost:6969/")
-    setAlbuns(meta.data.album)
-    setCantores(meta.data.artistas)
-    setRadios(meta.data.radios)
-    setDestaques(meta.data.destaques)
-    setPlaylists(meta.data.playlist)
+    if (!localStorage.getItem("data")) {
+      const meta = await axios.get("http://localhost:6969/")
+      setAlbuns(meta.data.album)
+      setCantores(meta.data.artistas)
+      setRadios(meta.data.radios)
+      setDestaques(meta.data.destaques)
+      setPlaylists(meta.data.playlist)
+      localStorage.setItem("data", JSON.stringify(meta.data))
+    } else {
+      const data = JSON.parse(localStorage.getItem("data"))
+      setAlbuns(data.album)
+      setCantores(data.artistas)
+      setRadios(data.radios)
+      setDestaques(data.destaques)
+      setPlaylists(data.playlist)
+    }
   }
 
   useEffect(() => { pegar_inicio() }, [])
@@ -32,7 +42,7 @@ function Home() {
           <div>
             <div className='conteiner_artista_populares'>
               <p className='titulo'>Artistas populares</p>
-              <div className='mostrar_tudo'>Mostar tudo</div>
+              <Link to={"/selection/artistas_populares"} className='mostrar_tudo'>Mostar tudo</Link>
             </div>
             <div className='conteiner_deitado'>
               {cantores?.map((cantor, key) => (
@@ -50,7 +60,7 @@ function Home() {
           <div>
             <div className='conteiner_artista_populares'>
               <p className='titulo'>Álbuns populares</p>
-              <div className='mostrar_tudo'>Mostar tudo</div>
+              <Link to={"/selection/album_popular"} className='mostrar_tudo'>Mostar tudo</Link>
             </div>
             <div className='conteiner_deitado'>
               {albuns.map((album, key) => (
@@ -68,7 +78,7 @@ function Home() {
           <div>
             <div className='conteiner_artista_populares'>
               <p className='titulo'>Estações de rádio populares</p>
-              <div className='mostrar_tudo'>Mostar tudo</div>
+              <Link to={"/selection/radio_popular"} className='mostrar_tudo'>Mostar tudo</Link>
             </div>
             <div className='conteiner_deitado'>
               {radios.map((radio, key) => (
@@ -101,7 +111,7 @@ function Home() {
           <div>
             <div className='conteiner_artista_populares'>
               <p className='titulo'>Playlist do Sputofai</p>
-              <div className='mostrar_tudo'>Mostar tudo</div>
+              <Link to={"/selection/playlist_do_spotify"} className='mostrar_tudo'>Mostar tudo</Link>
             </div>
             <div className='conteiner_deitado'>
               {playlists.map((playlist, key) => (
