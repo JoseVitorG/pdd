@@ -8,7 +8,8 @@ function Inscreva() {
     const enviar = async () => {
         if(data.nome && data.senha !== ""){
             try{
-                const res = await axios.post("http://localhost:6969/inscrever", data)
+                // const res = await axios.post("http://localhost:6969/inscrever", data)
+                localStorage.setItem("login", JSON.stringify(data))
                 window.location.href = "http://localhost:5173/"
             } catch (e) {
                 console.log(e)

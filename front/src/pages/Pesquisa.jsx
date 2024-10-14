@@ -1,18 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import "../Pesquisa.css"
 import Header from '../content/Header'
 import Biblioteca from '../content/Biblioteca'
 
 function Pesquisa() {
-    const [recentes, setRecentes] = useState([
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-        // { nome_album: "333", nome_artistas: "matuê", foto_url: "https://i.scdn.co/image/ab67616d00001e0263ecdc2fc549275b51fbb9a7" },
-    ])
+    const [recentes, setRecentes] = useState([])
+
+    const pegar_musicas = async () => {
+        const musicas = await axios.get("http://localhost:6969/pesquisa")
+        setRecentes(musicas.data)
+    }
+
+    useEffect(() => {pegar_musicas()},[])
 
     return (
         <>
@@ -31,7 +32,7 @@ function Pesquisa() {
                                         <img src={album.foto_url} className='albuns_img' />
                                     </div>
                                     <p>{album.nome_album}</p>
-                                    <p>{album.nome_artistas}</p>
+                                    <p>{album.nome_artista}</p>
                                 </div>
                             ))}
                         </div>

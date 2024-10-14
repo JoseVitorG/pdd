@@ -24,7 +24,7 @@ function Header(){
         </div>
         <div className='conteiner_header'>
           <Link to={"/inscrever"} className='btn_inscrever'>Inscreva-se</Link>
-          <div className='btn_entrar'>Entrar</div>
+          <Link to={"/login"} className='btn_entrar'>Entrar</Link>
         </div>
       </header>
     )

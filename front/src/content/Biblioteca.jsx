@@ -1,4 +1,5 @@
 import "../Biblioteca.css"
+import {Link} from "react-router-dom"
 
 function Biblioteca() {
     return (
@@ -22,6 +23,9 @@ function Biblioteca() {
                 <p>Avisaremos você sobre novos episódeos.</p>
                 <div className='button'>Explore podcasts</div>
             </div>
+            <Link to={"/add_musica"}>
+                adicionar musica
+            </Link>
         </div>
     )
 }
