@@ -3,17 +3,25 @@ import axios from "axios"
 import "../cadastro.css"
 
 function Inscreva() {
-    const [data, setData] = useState({ nome: "", senha: "" })
+    const [data, setData] = useState({ nome: "", email: "", senha: "", foto: "" })
+
 
     const enviar = async () => {
-        if(data.nome && data.senha !== ""){
-            try{
-                // const res = await axios.post("http://localhost:6969/inscrever", data)
-                localStorage.setItem("login", JSON.stringify(data))
-                window.location.href = "http://localhost:5173/"
-            } catch (e) {
-                console.log(e)
+        if (data.nome && data.senha && data.email && data.foto !== "") {
+            const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (gmailRegex.test(data.email)) {
+                try {
+                    const res = await axios.post("http://localhost:6969/inscrever", data)
+                    localStorage.setItem("login", JSON.stringify(data))
+                    window.location.href = "http://localhost:5173/"
+                } catch (e) {
+                    console.log(e)
+                }
+            } else {
+                console.log("digite um email valido")
             }
+        } else {
+            console.log("diggita ai")
         }
     }
 
@@ -26,11 +34,19 @@ function Inscreva() {
                 <p className="titulo_inscreva">Se inscreva e comece a curtir</p>
                 <div className="conteiner_em_pe">
                     <label htmlFor="nome" className="placehoder">Digite seu nome</label>
-                    <input type="text" id="nome" className="input_inscrever" onChange={(e) => {data.nome = e.target.value}} />
+                    <input type="text" id="nome" className="input_inscrever" onChange={(e) => { data.nome = e.target.value }} />
+                </div>
+                <div className="conteiner_em_pe">
+                    <label htmlFor="email" className="placehoder">Digite seu email</label>
+                    <input type="text" id="email" className="input_inscrever" onChange={(e) => { data.email = e.target.value }} />
                 </div>
                 <div className="conteiner_em_pe">
                     <label htmlFor="senha" className="placehoder">Digite uma senha</label>
-                    <input type="text" id="senha" className="input_inscrever" onChange={(e) => {data.senha = e.target.value}} />
+                    <input type="text" id="senha" className="input_inscrever" onChange={(e) => { data.senha = e.target.value }} />
+                </div>
+                <div className="conteiner_em_pe">
+                    <label htmlFor="foto" className="placehoder">Adicione uma foto</label>
+                    <input type="text" id="foto" className="input_inscrever" onChange={(e) => { data.foto = e.target.value }} />
                 </div>
                 <div className="botao_inscrever" onClick={() => enviar()}>Inscrever-se</div>
             </div>

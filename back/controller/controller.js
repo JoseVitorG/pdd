@@ -25,7 +25,9 @@ const pegar_data = async (req, res) => {
 
 const add_user = async (req, res) => {
     const data = req.body
-    const resposta = await cliente.query(`insert into usuarios(nome, senha) values('${data.nome}', '${data.senha}')`)
+    await cliente.query(`insert into artistas_populares(nome_artistas, foto_url, tipo) values('${data.nome}', '${data.foto}', 'Artista')`)
+    const id = await cliente.query(`select id from artistas_populares where nome_artistas = '${data.nome}'`)
+    const resposta = await cliente.query(`insert into usuarios(email, senha, artista_id) values('${data.email}', '${data.senha}', ${id.rows[0].id})`)
     res.status(201).send(resposta)
 }
 
@@ -45,9 +47,20 @@ const pegar_musicas = async (req, res) => {
 
 const login = async (req, res) => {
     const user = req.body
-    const data = await cliente.query(`select nome, senha from usuarios where nome = '${user.nome}' and senha = '${user.senha}'`)
-    if (data.rows.length > 0) {
-        res.status(200).send(true)
+    const data = await cliente.query(
+        `
+    select 
+    usuarios.artista_id,
+    usuarios.email, 
+    usuarios.senha, 
+    artistas_populares.nome_artistas as nome, 
+    artistas_populares.foto_url as foto 
+    from usuarios 
+    join public.artistas_populares on usuarios.artista_id = artistas_populares.id
+    where email = '${user.email}' and senha = '${user.senha}'
+    `)
+    if (data.rows.length > []) {
+        res.status(200).send(data.rows)
     } else {
         res.status(404).send(false)
     }

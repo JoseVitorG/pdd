@@ -5,29 +5,23 @@ import { Link } from "react-router-dom"
 
 
 function Login() {
-    const [user, setUser] = useState({ nome: "", senha: "" })
+    const [user, setUser] = useState({ email: "", senha: "" })
 
     const auto_login = async () => {
         if (localStorage.getItem("login")) {
-            const user_local = localStorage.getItem("login")
-            const login = await axios.post("http://localhost:6969/login", JSON.parse(user_local))
-            console.log(login.data)
+            const user_local = JSON.parse(localStorage.getItem("login"))
+            const login = await axios.post("http://localhost:6969/login", user_local)
             if (login.data) {
-                console.log("logado")
-                window.location.href = "http://localhost:5173/"
-            } else {
-                console.log("errp")
+                setUser(user_local)
             }
         }
     }
 
     const logar = async () => {
-        if (user.nome && user.senha != "") {
+        if (user.email && user.senha != "") {
             const login = await axios.post("http://localhost:6969/login", user)
-            console.log(login.data)
             if (login.data) {
-                console.log("logado")
-                localStorage.setItem("login", user)
+                localStorage.setItem("login", JSON.stringify(login.data[0]))
                 window.location.href = "http://localhost:5173/"
             } else {
                 console.log("erro")
@@ -47,8 +41,8 @@ function Login() {
                 </div>
 
                 <div className="conteiner_login">
-                    <label htmlFor="nome">Seu nome</label>
-                    <input type="text" placeholder="Seu nome" id="nome" onChange={(e) => user.nome = e.target.value} className="input_login" />
+                    <label htmlFor="email">Seu email</label>
+                    <input type="text" placeholder="Seu nome" id="email" onChange={(e) => user.email = e.target.value} className="input_login" />
                     <label htmlFor="senha">Sua senha</label>
                     <input type="text" placeholder="Sua senha" id="senha" onChange={(e) => user.senha = e.target.value} className="input_login" />
                 </div>

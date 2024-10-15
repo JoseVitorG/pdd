@@ -31,6 +31,8 @@ function Home() {
     }
   }
 
+  
+
   useEffect(() => { pegar_inicio() }, [])
 
   return (
