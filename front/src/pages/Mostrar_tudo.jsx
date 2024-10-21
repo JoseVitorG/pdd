@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Biblioteca from "../content/Biblioteca"
 import Header from "../content/Header"
 import axios from "axios"
@@ -27,13 +27,13 @@ function Mostar_tudo() {
                     <div>
                         <div className='conteiner_deitado_mostrar'>
                             {dados.map((item, key) => (
-                                <div key={key} className='conteiner_enter_mostra_tudo'>
+                                <Link key={key} className='conteiner_enter_mostra_tudo' to={`/perfil/${item.nome}`}>
                                     <div className='div_play'>
                                         <img src={item.foto} className={tabela == "artistas_populares" ? "img_artista" : 'albuns_img_mostrar'} />
                                     </div>
                                     <p>{item.nome}</p>
                                     <p>{item.desc}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

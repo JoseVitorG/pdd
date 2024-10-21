@@ -48,13 +48,13 @@ function Home() {
             </div>
             <div className='conteiner_deitado'>
               {cantores?.map((cantor, key) => (
-                <div key={key} className='conteiner_artista'>
+                <Link key={key} className='conteiner_artista' to={`/perfil/${cantor.nome_artistas}`}>
                   <div className='div_play'>
                     <img src={cantor.foto_url} className='imagem_artistas' />
                   </div>
                   <p>{cantor.nome_artistas}</p>
                   <p>{cantor.tipo}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

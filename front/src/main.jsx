@@ -7,6 +7,7 @@ import Inscreva from './pages/Inscrevase'
 import Login from './pages/Login'
 import Add_musica from './pages/Add_musica'
 import Mostar_tudo from './pages/Mostrar_tudo'
+import Usuario from './pages/Usuario'
 
 const paginas = createBrowserRouter([
   { path: '/', element: <Home /> },
@@ -15,6 +16,7 @@ const paginas = createBrowserRouter([
   { path: '/login', element: <Login /> },
   { path: '/add_musica', element: <Add_musica /> },
   { path: '/selection/:tabela', element: <Mostar_tudo /> },
+  { path: '/perfil/:id', element: <Usuario /> },
 
 ])
 

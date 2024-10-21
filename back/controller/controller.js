@@ -67,16 +67,49 @@ const login = async (req, res) => {
 
 }
 
+const perfil = async (req, res) => {
+    const { nome_artistas } = req.params
+
+    const musicas = await cliente.query(
+        `
+        select
+        musicas.nome,
+        album_popular.foto_url as foto
+        from musicas
+        join album_popular on musicas.album_id = album_popular.id
+        where nome_artistas = '${nome_artistas}'
+        `
+    )
+
+    const user = await cliente.query(
+        `
+        select
+        nome_artistas as nome,
+        foto_url as foto,
+        tipo
+        from artistas_populares
+        where nome_artistas = '${nome_artistas}'
+        `
+    )
+
+    if (musicas.rows.length && user.rows.length > []) {
+        res.status(200).send({user: user.rows,musicas: musicas.rows })
+    } else {
+        res.status(404).send(false)
+    }
+
+}
+
 const add_musica = async (req, res) => {
     const dados = req.body
     const data = await cliente.query(`insert into musicas(nome, artista_id, album_id) values('${dados.nome}', ${dados.artista_id}, ${dados.album_id})`)
-    res.status(201).send(data)
+    res.status(201).send(data.rows)
 }
 
 // nao queria fazer assim mas os dados no banco de dados nao estao batendo, entao vai ter que ser assim
 
 const pegar_artistas = async (req, res) => {
-    const data = await cliente.query(`select nome_artistas as nome, foto_url as foto, tipo as desc from artistas_populares limit 18`)
+    const data = await cliente.query(`select id, nome_artistas as nome, foto_url as foto, tipo as desc from artistas_populares limit 18`)
     res.status(200).send(data.rows)
 }
 
@@ -93,4 +126,4 @@ const pegar_playlists = async (req, res) => {
     res.status(200).send(data.rows)
 }
 
-export { pegar_data, add_user, pegar_musicas, add_musica, login, pegar_artistas, pegar_albuns_populares, pegar_radios_populares, pegar_playlists }
+export { pegar_data, add_user, pegar_musicas, add_musica, login, pegar_artistas, pegar_albuns_populares, pegar_radios_populares, pegar_playlists, perfil }
