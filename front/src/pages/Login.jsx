@@ -7,29 +7,52 @@ import { Link } from "react-router-dom"
 function Login() {
     const [user, setUser] = useState({ email: "", senha: "" })
 
-    const auto_login = async () => {
-        if (localStorage.getItem("login")) {
-            const user_local = JSON.parse(localStorage.getItem("login"))
-            const login = await axios.post("http://localhost:6969/login", user_local)
-            if (login.data) {
-                setUser(user_local)
-            }
-        }
-    }
+    // const auto_login = async () => {
+    //     if (localStorage.getItem("login")) {
+    //         const user_local = JSON.parse(localStorage.getItem("login"))
+    //         const login = await axios.post("http://localhost:6969/login", user_local)
+    //         if (login.data) {
+    //             setUser(user_local)
+    //         }
+    //     }
+    // }
 
-    const logar = async () => {
-        if (user.email && user.senha != "") {
-            const login = await axios.post("http://localhost:6969/login", user)
-            if (login.data) {
-                localStorage.setItem("login", JSON.stringify(login.data[0]))
-                window.location.href = "http://localhost:5173/"
-            } else {
-                console.log("erro")
-            }
-        }
-    }
+    // const logar = async () => {
+    //     if (user.email && user.senha != "") {
+    //         const login = await axios.post("http://localhost:6969/login", user)
+    //         if (login.data) {
+    //             localStorage.setItem("login", JSON.stringify(login.data[0]))
+    //             window.location.href = "http://localhost:5173/"
+    //         } else {
+    //             console.log("erro")
+    //         }
+    //     }
+    // }
 
-    useEffect(() => { auto_login() }, [])
+    const login = () => {
+        const client_id = "cc59bd6f16aa4fd580f2774d38f5d23b";
+        const redirect_uri = "http://localhost:5173/";
+        const state = generateRandomString(16);
+        const scope = "user-read-private user-read-email";
+    
+        const spotifyAuthURL = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&scope=${encodeURIComponent(
+            scope
+        )}&redirect_uri=${encodeURIComponent(redirect_uri)}&state=${state}`;
+    
+        window.location.href = spotifyAuthURL;
+    };
+    
+    const generateRandomString = (length) => {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    };
+    
+
+    useEffect(() => { login() }, [])
 
     return (
         <>
