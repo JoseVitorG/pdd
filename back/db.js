@@ -1,11 +1,12 @@
-import pg from "pg"
-const cliente = new pg.Client("")
+import { Sequelize } from 'sequelize';
 
-// try{
-//     cliente.connect()
-//     console.log("foi db")
-// }catch(e){
-//     console.log(e)
-// }
+const sequelize = new Sequelize('postgresql://postgres.rtafvmyaqjkqsutfcxps:VtfQW1KUn5LXMITU@aws-0-sa-east-1.pooler.supabase.com:6543/postgres')
 
-export default cliente
+try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+} catch (error) {
+    console.error('Unable to connect to the database:', error);
+}
+
+export default sequelize

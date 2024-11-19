@@ -13,29 +13,21 @@ function Home() {
   const [playlists, setPlaylists] = useState([])
 
   const pegar_inicio = async () => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const state = params.get('state');
-
-    console.log('Code:', code);
-
-    try {
-      const tokenResponse = await axios.post('http://localhost:6969/callback', { code });
-      const { access_token, refresh_token } = tokenResponse.data;
-
-      console.log('Access Token:', access_token);
-
-      localStorage.setItem('accessToken', access_token);
- 
-      const userResponse = await axios.get('http://localhost:6969/user', {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-
-      console.log('Dados do usuário:', userResponse);
-    } catch (error) {
-      console.error('Erro ao autenticar ou obter dados:', error.response?.data || error.message);
+    if (!localStorage.getItem("data")) {
+      const meta = await axios.get("http://localhost:6969/")
+      setAlbuns(meta.data.album)
+      setCantores(meta.data.artistas)
+      setRadios(meta.data.radios)
+      setDestaques(meta.data.destaques)
+      setPlaylists(meta.data.playlist)
+      localStorage.setItem("data", JSON.stringify(meta.data))
+    } else {
+      const data = JSON.parse(localStorage.getItem("data"))
+      setAlbuns(data.album)
+      setCantores(data.artistas)
+      setRadios(data.radios)
+      setDestaques(data.destaques)
+      setPlaylists(data.playlist)
     }
   };
 
@@ -145,19 +137,3 @@ function Home() {
 export default Home
 
 
-// if (!localStorage.getItem("data")) {
-//   const meta = await axios.get("http://localhost:6969/")
-//   setAlbuns(meta.data.album)
-//   setCantores(meta.data.artistas)
-//   setRadios(meta.data.radios)
-//   setDestaques(meta.data.destaques)
-//   setPlaylists(meta.data.playlist)
-//   localStorage.setItem("data", JSON.stringify(meta.data))
-// } else {
-//   const data = JSON.parse(localStorage.getItem("data"))
-//   setAlbuns(data.album)
-//   setCantores(data.artistas)
-//   setRadios(data.radios)
-//   setDestaques(data.destaques)
-//   setPlaylists(data.playlist)
-// }
