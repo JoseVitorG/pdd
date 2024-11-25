@@ -4,24 +4,24 @@ import "../Add_musica.css"
 import { Link } from "react-router-dom"
 
 function Add_musica() {
-    const [musica, setMusica] = useState({ nome: "", artista_id: "", album_id: "" })
+    const [musica, setMusica] = useState({ nome: "", id_album: 0 })
 
-    const ver_cadastro = async () => {
-        if (localStorage.getItem("login")) {
+    // const ver_cadastro = async () => {
+    //     if (localStorage.getItem("login")) {
 
-        } else {
-            window.location.href = "http://localhost:5173/login"
-        }
-    }
+    //     } else {
+    //         window.location.href = "http://localhost:5173/login"
+    //     }
+    // }
 
     const add_musica = async () => {
-        if (musica.nome && musica.album_id && musica.artista_id != "") {
+        if (musica.nome && musica.id_album != "") {
             await axios.post("http://localhost:6969/add_musica", musica)
             alert("musica adicionada")
         }
     }
 
-    useEffect(() => { ver_cadastro() }, [])
+    // useEffect(() => { ver_cadastro() }, [])
 
     return (
         <>
@@ -36,12 +36,8 @@ function Add_musica() {
                     <input type="text" onChange={(e) => musica.nome = e.target.value} id="nome" className="inputs" />
                 </div>
                 <div className="conteiner_inputs">
-                    <label htmlFor="id_artista">Id do artista</label>
-                    <input type="number" onChange={(e) => musica.artista_id = e.target.value} id="id_artista" className="inputs" />
-                </div>
-                <div className="conteiner_inputs">
                     <label htmlFor="album_id">Id do album</label>
-                    <input type="number" onChange={(e) => musica.album_id = e.target.value} id="album_id" className="inputs" />
+                    <input type="number" onChange={(e) => musica.id_album = e.target.value} id="album_id" className="inputs" />
                 </div>
 
                 <div onClick={() => add_musica()} className="botao">Adicionar</div>
@@ -51,39 +47,5 @@ function Add_musica() {
 
 }
 
-// caso alguem esteja testando nao adicione musicas atoa siga a lista de musicas a baixo respectivamente, esta linkcado diretamente com o banco de dados caso faça errado esta sujeito a paulada independende de quem seja
-// do jeito que você botar aparecera para o usuario, se for botar as musicas abaixo bote do jeito que esta
-// [
-//     {
-//         nome: "WILDFLOWER",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-//     {
-//         nome: "THE GREATEST",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-//     {
-//         nome: "L'AMOUR DE MA VIE",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-//     {
-//         nome: "THE DINNER",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-//     {
-//         nome: "BITTERSUITE",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-//     {
-//         nome: "BLUE",
-//         artista_id: 7,
-//         album_id: 6
-//     },
-// ]
 
 export default Add_musica

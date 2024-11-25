@@ -5,12 +5,13 @@ import axios from 'axios'
 
 function Header() {
   const [user, setUser] = useState()
+  const [mostrar, setMostrar] = useState(false)
 
   const auto_login = async () => {
     if (localStorage.getItem("login")) {
       const user_local = JSON.parse(localStorage.getItem("login"))
-      const login = await axios.post("http://localhost:6969/login", user_local)
-      if (login.data) {
+      // const login = await axios.post("http://localhost:6969/login", user_local)
+      if (user_local) {
         setUser(user_local)
       } else {
         console.log("erro")
@@ -44,7 +45,16 @@ function Header() {
         {user ?
           (
             <>
-              <Link><img src={user.foto} className='img_perfil' /></Link>
+              <div onClick={() => setMostrar(!mostrar)} className='img_perfil_top'>
+                <img src={user.foto} className='img_perfil_top' />
+                {mostrar ?
+                  <div className='config'>
+                    <Link to={`/perfil/${user.id}`} className='class'>Perfil</Link>
+                    <p className="class" onClick={() => { localStorage.removeItem("login"), setUser(false) }}>Sair</p>
+                  </div>
+                  :
+                  ""}
+              </div>
             </>
           )
           :

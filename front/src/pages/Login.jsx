@@ -21,14 +21,13 @@ function Login() {
         if (user.email && user.senha != "") {
             const login = await axios.post("http://localhost:6969/login", user)
             if (login.data) {
-                localStorage.setItem("login", JSON.stringify(login.data[0]))
+                localStorage.setItem("login", JSON.stringify(login.data))
                 window.location.href = "http://localhost:5173/"
             } else {
                 console.log("erro")
             }
         }
     }
-    
 
     useEffect(() => { auto_login() }, [])
 

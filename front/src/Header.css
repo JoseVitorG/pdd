@@ -6,8 +6,8 @@
 }
 
 .spotfy {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -92,8 +92,41 @@
     color: #000;
 }
 
-.img_perfil{
+.img_perfil_top {
     width: 60px;
     height: 60px;
     border-radius: 100%;
+    position: relative;
+}
+
+.config {
+    width: 200px;
+    position: absolute;
+    background-color: #323232;
+    right: 0;
+    bottom: -110px;
+    z-index: 1;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 10px;
+}
+
+.config .class {
+    height: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+
+}
+
+.config p:hover {
+    background-color: #878787;
+    border-radius: 10px;
+
 }

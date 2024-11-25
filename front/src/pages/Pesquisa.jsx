@@ -29,10 +29,10 @@ function Pesquisa() {
                             {recentes.map((album, key) => (
                                 <div key={key} className='conteiner_artista'>
                                     <div className='div_play'>
-                                        <img src={album.foto_url} className='albuns_img' />
+                                        <img src={album.foto} className='albuns_img' />
                                     </div>
-                                    <p>{album.nome_album}</p>
-                                    <p>{album.nome_artista}</p>
+                                    <p>{album.nome}</p>
+                                    <p>{album.Albun.nome}</p>
                                 </div>
                             ))}
                         </div>

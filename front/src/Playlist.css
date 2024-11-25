@@ -1,0 +1,46 @@
+.tela_principal_pesquisa {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100vw;
+}
+
+.conteiner_playlist {
+    width: 100%;
+    background: linear-gradient(to bottom, #121212, #121212);
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+.div_playlist {
+    display: flex;
+    height: 30%;
+    align-items: center;
+    background-color: #acacac;
+    gap: 10px;
+}
+
+.foto_playlist {
+    background-color: #000;
+    width: 200px;
+    height: 200px;
+    margin-left: 30px;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nome_playlist {
+    width: 80%;
+    font-size: 6rem;
+    white-space: nowrap;
+    text-wrap-style: balance;
+}

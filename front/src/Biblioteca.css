@@ -41,6 +41,7 @@
     border-radius: 10px;
     gap: 10px;
     color: #fff;
+    text-decoration: none;
   }
   
   .conteiner_first_playlist :first-child {

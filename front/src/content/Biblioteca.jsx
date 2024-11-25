@@ -1,5 +1,5 @@
 import "../Biblioteca.css"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function Biblioteca() {
     return (
@@ -13,18 +13,25 @@ function Biblioteca() {
                 </div>
                 <p className='plus'>+</p>
             </div>
-            <div className='conteiner_first_playlist'>
+            <Link className='conteiner_first_playlist' to={"/playlist"}>
                 <p>Crie sua primeira playlist</p>
                 <p>É facil, vamos te ajudar.</p>
                 <div className='button'>Criar playlist</div>
-            </div>
-            <div className='conteiner_first_playlist'>
-                <p>Que tal seguir um podcast novo?</p>
-                <p>Avisaremos você sobre novos episódeos.</p>
-                <div className='button'>Explore podcasts</div>
-            </div>
-            <Link to={"/add_musica"}>
-                adicionar musica
+            </Link>
+
+            <Link to={"/add_musica"} className="conteiner_first_playlist">
+                <p>Deseja lancar uma musica</p>
+                <p>É facil, Clica ai</p>
+                <div className='button'>
+                    adicionar musica
+                </div>
+            </Link>
+            <Link to={"/add_album"} className="conteiner_first_playlist">
+                <p>Deseja lancar um album</p>
+                <p>É facil, Clica ai</p>
+                <div className='button'>
+                    adicionar musica
+                </div>
             </Link>
         </div>
     )

@@ -6,7 +6,7 @@ function User() {
     return (
         <>
             <Header />
-            <div>
+            <div className='tela_principal_pesquisa'>
                 <Biblioteca />
                 <Perfil />
             </div>
